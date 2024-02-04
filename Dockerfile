@@ -7,6 +7,7 @@ RUN apk add --no-cache bind && mkdir /var/bind/zones
 USER named:named
 
 EXPOSE 53
+
 EXPOSE 8053
 
 COPY --chown=root:root --chmod=644 files/* /var/bind
