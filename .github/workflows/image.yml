@@ -22,9 +22,16 @@ jobs:
         with:
           version: latest
 
+      - name: Read version from properties file
+        id: read_property
+        uses: Reedyuk/read-properties@v1.0.4
+        with:
+          path: 'build.properties'
+          property: 'version'
+
       - name: build the image
         run: |
           docker buildx build --push \
-            --tag thomo/dnsbind9:1.0.3 \
+            --tag thomo/dnsbind9:${{ steps.read_property.outputs.value }} \
             --tag thomo/dnsbind9:latest \
             --platform linux/amd64,linux/arm/v7,linux/arm/v8,linux/arm64 .

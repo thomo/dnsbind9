@@ -1,6 +1,9 @@
 #!/bin/bash
 
-VERSION=1.0.2
 NAME=thomo/dnsbind9
 
-docker build -t "${NAME}:${VERSION}" -t "${NAME}:latest" .
+function getPropVal {
+    grep "${1}" "build.properties" | cut -d'=' -f2
+}
+
+docker build -t "${NAME}:$(getPropVal 'version')" -t "${NAME}:latest" .
